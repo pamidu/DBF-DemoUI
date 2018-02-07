@@ -294,11 +294,8 @@
                 url: URL,
                 data: payload,
                 headers: {
-                    "Ocp-Apim-Subscription-Key": "1602f50e37134d0e9b3432960c07038f", 
                     "Content-Type": "application/json",
-                    "mode": "sandbox",
                     "SecurityToken": "12c95918-17d6-4ab7-a1cb-933afee648c0,bank.app.cloudcharge.com"
-
                 }
             });
         }
