@@ -19,11 +19,11 @@ function signupController($scope, $rootScope, $state, $timeout, $http, $systemUr
                 $state.go("verify-mobile", {user: $scope.user});
                 $scope.user = {};
             } else {
-                alert("There was an error: " + response.data.Error);
+                alert(response.data.Error);
                 $scope.processing = false;
             }
         }, function (response, status) {
-            console.log(response, status);
+            alert(response.data.CustomMessage);
             $scope.processing = false;
         });
         
@@ -82,11 +82,11 @@ function signupController($scope, $rootScope, $state, $timeout, $http, $systemUr
                 };
                 $scope.loading = false;
             } else {
-                alert("There was an error: " + response.data.CustomMessage);
+                alert(response.data.CustomMessage);
                 $scope.processing = false;
             }
         }, function (response, status) {
-            console.log(response, status);
+            alert(response.data.CustomMessage);
             $scope.processing = false;
         });
     }
