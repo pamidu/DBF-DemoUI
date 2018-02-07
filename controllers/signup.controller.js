@@ -10,7 +10,10 @@ function signupController($scope, $rootScope, $state, $timeout, $http, $systemUr
     $scope.lockEmail = false;
 
     if ($state.params || $state.params.name) {
-        getProfile($state.params.name);
+        var name = $state.params.name.split(" ");
+        $scope.user.fname = name[0] || "";
+        $scope.user.lname = name[1] || "";
+        //getProfile($state.params.name);
     }
 
     $scope.authenticate = function () {
