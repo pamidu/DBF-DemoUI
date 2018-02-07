@@ -259,7 +259,7 @@
                 address: {},
                 contacts : [ 
                     {
-                        contact : profile.email || "",
+                        contact : profile.name || "",
                         type : "facebook",
                         verified : true
                     }
