@@ -281,7 +281,7 @@
     uik.factory('$recipt', function ($http, $systemUrls) {
 
         function createRecipt (profile, amount) {
-            var URL = $systemUrls.reciptService + "invoicepay/createReceipt";
+            var URL = $systemUrls.reciptService + "/invoicepay/createReceipt";
             var payload = { 
                 email: profile.email || "", 
                 amount: amount || 0,
