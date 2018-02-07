@@ -403,7 +403,7 @@
             invoiceService: "https://smoothbotservicesdev.plus.smoothflow.io/DBF/API/1.0.0.0/InvoiceSevice",
             reciptService: "https://app.cloudcharge.com/services/duosoftware.InvoicingAPI",
             cloudcharge: "https://cloudchargedev.azure-api.net",
-            userService: "http://userservice.app1.veery.cloud/DVP/API/1.0.0.0",
+            userService: "https://userservice.plus.smoothflow.io/DVP/API/1.0.0.0",
             botConnector: {
                 facebook: "https://smoothbotdev.plus.smoothflow.io/fb/DBF/API/v1/BotConnector/Platform/fb/Demo"
             }
