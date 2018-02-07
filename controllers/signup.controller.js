@@ -9,10 +9,14 @@ function signupController($scope, $rootScope, $state, $timeout, $http, $systemUr
     $scope.processing = true;
     $scope.lockEmail = false;
 
-    if ($state.params || $state.params.name) {
+    if ($state.params && $state.params.name) {
         var name = $state.params.name.split(" ");
+        var sender = $state.params.sender.split(":");
+
+        $scope.user.name = $state.params.name;
         $scope.user.fname = name[0] || "";
         $scope.user.lname = name[1] || "";
+        $scope.user.senderId = sender[1] || "";
         //getProfile($state.params.name);
     }
 
@@ -31,40 +35,6 @@ function signupController($scope, $rootScope, $state, $timeout, $http, $systemUr
         });
         
     }
-
-    $scope.signupUser = function (user) {
-        $scope.processing = true;
-        var userDetails = {
-            "firstName": user.firstName,
-            "lastName": user.lastName,
-            "nicPassport": user.nicPassport,
-            "mobile": user.mobile,
-            "email": user.email,
-            "password": user.password
-        }
-        $http({
-            method: "POST",
-            url: $systemUrls.userService,
-            data: userDetails,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (response, status) {
-            debugger
-            if (response.data.IsSuccess) {
-
-                $scope.sendVerificationEmail(user.email, user.mobile);
-                $scope.user = {};
-            } else {
-                alert("There was an error: " + response.data.Error);
-                $scope.processing = false;
-            }
-        }, function (response, status) {
-            console.log(response, status);
-            $scope.processing = false;
-        });
-    }
-
 
     function getProfile (name) {
         $http({

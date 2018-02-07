@@ -12,18 +12,28 @@ function verifyMobileController($scope, $rootScope, $state, $timeout, $http, $sy
     $scope.checkVerification = function (mobile, code) {
         $otp.verify(mobile, code).then(function (response, status) {
             if (response.data.IsSuccess) {
-                registerProfileOnCloudcharge($scope.user).then(function () {
-                    $recipt.create($scope.user, 10000).then(function () {
-                        $state.go("registration-success");
-                        $scope.user = {};
+                registerProfileOnCloudcharge($scope.user).then(function (response) {
+                    $recipt.create($scope.user, 1000000).then(function () {
+                        $profile.onFacetone.registerProfile($scope.user).then(function (response, status) {
+                            if (response.data.IsSuccess) {
+                                $state.go("registration-success", {user: $scope.user});
+                                $scope.user = {};
+                            }else {
+                                alert(response.data.CustomMessage);
+                            }
+                        }, function(response, status) {
+                            alert(response.data.CustomMessage);
+                        });
                     });
+                }, function (response) {
+                    alert(response);
                 });
             } else {
-                alert("There was an error: " + response.data.CustomMessage);
+                alert(response.data.CustomMessage);
                 $scope.processing = false;
             }
         }, function (response, status) {
-            console.log(response, status);
+            alert(response.data.CustomMessage);
             $scope.processing = false;
         });
     }

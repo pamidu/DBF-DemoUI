@@ -248,7 +248,40 @@
         }
 
         function createProfileOnFacetone (profile) {
+            var URL = $systemUrls.userService + "/ExternalUser";
+            var payload = { 
+                email: profile.email || "",
+                name: profile.name || "",
+                firstname: profile.fname || "",
+                lastname: profile.lname || "",
+                phone: profile.mobile || "",
+                ssn: "",
+                address: {},
+                contacts : [ 
+                    {
+                        contact : profile.email || "",
+                        type : "facebook",
+                        verified : true
+                    }
+                ],
+                custom_fields:[
+                    {"key":"bank", "value": ""},
+                    {"key":"odel", "value": ""},
+                    {"key":"dialog", "value": ""},
+                    {"key":"ceb", "value": ""}
+                ]
+            };
 
+            return $http({
+                method: "POST",
+                url: URL,
+                data: payload,
+                headers: {
+                    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdWtpdGhhIiwianRpIjoiYWEzOGRmZWYtNDFhOC00MWUyLTgwMzktOTJjZTY0YjM4ZDFmIiwic3ViIjoiNTZhOWU3NTlmYjA3MTkwN2EwMDAwMDAxMjVkOWU4MGI1YzdjNGY5ODQ2NmY5MjExNzk2ZWJmNDMiLCJleHAiOjE5MDIzODExMTgsInRlbmFudCI6LTEsImNvbXBhbnkiOi0xLCJzY29wZSI6W3sicmVzb3VyY2UiOiJhbGwiLCJhY3Rpb25zIjoiYWxsIn1dLCJpYXQiOjE0NzAzODExMTh9.Gmlu00Uj66Fzts-w6qEwNUz46XYGzE8wHUhAJOFtiRo",
+                    "Content-Type": "application/json",
+                    "companyInfo": "1:103"
+                }
+            });
         }
 
         function registerWithBank (profile) {
@@ -274,7 +307,9 @@
                 registerWithTelecommunicationProvider: registerWithTelecommunicationProvider,
                 registerWithUtilityProvider: registerWithUtilityProvider,
             },
-            onFacetone: createProfileOnFacetone,
+            onFacetone: {
+                registerProfile: createProfileOnFacetone
+            }
         }
     });
 
@@ -368,6 +403,10 @@
             invoiceService: "https://smoothbotservicesdev.plus.smoothflow.io/DBF/API/1.0.0.0/InvoiceSevice",
             reciptService: "https://app.cloudcharge.com/services/duosoftware.InvoicingAPI",
             cloudcharge: "https://cloudchargedev.azure-api.net",
+            userService: "http://userservice.app1.veery.cloud/DVP/API/1.0.0.0",
+            botConnector: {
+                facebook: "https://smoothbotdev.plus.smoothflow.io/fb/DBF/API/v1/BotConnector/Platform/fb/Demo"
+            }
         };
     });
 

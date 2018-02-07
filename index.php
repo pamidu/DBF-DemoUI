@@ -42,7 +42,7 @@
     <script type="text/javascript" src="controllers/signup.controller.js"></script>
     <script type="text/javascript" src="controllers/payment.controller.js"></script>
     <script type="text/javascript" src="controllers/verifymobile.controller.js"></script>
-
+    <script type="text/javascript" src="controllers/successRegistration.controller.js"></script>
 
 </body>
 

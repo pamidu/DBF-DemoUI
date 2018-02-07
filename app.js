@@ -14,7 +14,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/signin.html',
             controller: 'SigninController'
         }).state('signup', {
-            url: '/signup?name',
+            url: '/signup?name&sender',
             templateUrl: 'partials/signup.html',
             controller: 'SignupController'
         }).state('verify-mobile', {
@@ -26,8 +26,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'VerifyMobileController'
         }).state('registration-success', {
             url: '/registration-success',
+            params: {
+                user: null
+            },
             templateUrl: 'partials/registration-success.html',
-            controller: function ($scope) { }
+            controller: 'SuccessRegistration'
         }).state('payment', {
             url: '/payment',
             templateUrl: 'partials/payment.html',
