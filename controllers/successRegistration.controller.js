@@ -7,9 +7,10 @@ function successRegistration($scope, $rootScope, $state, $timeout, $http, $syste
 
     if ($state.params || $state.params.user) {
       $scope.user = $state.params.user;
+      BackToBot();
     }
 
-    $scope.start = function () {
+    function BackToBot () {
       $http({
         method: "POST",
         url: $systemUrls.botConnector.facebook + "/" + ($scope.user.senderId || ""),
@@ -23,7 +24,7 @@ function successRegistration($scope, $rootScope, $state, $timeout, $http, $syste
         }
       }).then(function (response, status) {
         if(response.data === "success"){
-          window.close();
+          console.log("registration success");
         }else {
             alert(response.data);
         }
