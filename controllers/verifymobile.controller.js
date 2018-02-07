@@ -9,32 +9,63 @@ function verifyMobileController($scope, $rootScope, $state, $timeout, $http, $sy
       $scope.user = $state.params.user;
     }
 
+    // $scope.checkVerification = function (mobile, code) {
+    //     $otp.verify(mobile, code).then(function (response, status) {
+    //         if (response.data.IsSuccess) {
+    //             registerProfileOnCloudcharge($scope.user).then(function (response) {
+    //                 $recipt.create($scope.user, 1000000).then(function () {
+    //                     $profile.onFacetone.registerProfile($scope.user).then(function (response, status) {
+    //                         if (response.data.IsSuccess) {
+    //                             $state.go("registration-success", {user: $scope.user});
+    //                             $scope.user = {};
+    //                         }else {
+    //                             alert(response.data.CustomMessage);
+    //                         }
+    //                     }, function(response, status) {
+    //                         alert(response.data.CustomMessage);
+    //                     });
+    //                 });
+    //             }, function (response) {
+    //                 alert(response);
+    //             });
+    //         } else {
+    //             alert(response.data.CustomMessage);
+    //             $scope.processing = false;
+    //         }
+    //     }, function (response, status) {
+    //         alert(response.data.CustomMessage);
+    //         $scope.processing = false;
+    //     });
+    // }
+
     $scope.checkVerification = function (mobile, code) {
         $otp.verify(mobile, code).then(function (response, status) {
-            if (response.data.IsSuccess) {
-                registerProfileOnCloudcharge($scope.user).then(function (response) {
-                    $recipt.create($scope.user, 1000000).then(function () {
-                        $profile.onFacetone.registerProfile($scope.user).then(function (response, status) {
-                            if (response.data.IsSuccess) {
+            if (response.data && response.data.IsSuccess) { 
+                // valid otp code
+                $profile.onFacetone.registerProfile($scope.user).then(function (response, status) {
+                    if (response.data && response.data.IsSuccess) {
+                        registerProfileOnCloudcharge($scope.user).then(function (response) {
+                            $recipt.create($scope.user, 1000000).then(function () {
                                 $state.go("registration-success", {user: $scope.user});
                                 $scope.user = {};
-                            }else {
-                                alert(response.data.CustomMessage);
-                            }
-                        }, function(response, status) {
-                            alert(response.data.CustomMessage);
+                            }, function () {
+
+                            });
+                        }, function () {
+
                         });
-                    });
-                }, function (response) {
+                    }else {
+                        alert(response.data.CustomMessage);
+                    }
+                }, function (response, status) {
                     alert(response);
                 });
-            } else {
+            }else {
                 alert(response.data.CustomMessage);
-                $scope.processing = false;
             }
         }, function (response, status) {
-            alert(response.data.CustomMessage);
-            $scope.processing = false;
+            // error in otp code validation
+            alert(response);
         });
     }
 
