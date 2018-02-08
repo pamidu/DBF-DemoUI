@@ -252,6 +252,7 @@
             var payload = { 
                 email: profile.email || "",
                 name: profile.name || "",
+                title: "Mr",
                 firstname: profile.fname || "",
                 lastname: profile.lname || "",
                 phone: profile.mobile || "",
@@ -313,15 +314,15 @@
         }
     });
 
-    uik.factory('$recipt', function ($http, $systemUrls) {
+    uik.factory('$invoice', function ($http, $systemUrls) {
 
-        function createRecipt (profile, amount) {
+        function createRecipt (profile, payment) {
             var URL = $systemUrls.reciptService + "/invoicepay/createReceipt";
             var payload = { 
                 email: profile.email || "", 
-                amount: amount || 0,
-                paymentMethod: "Cash",
-                guInvoiceId : ""
+                amount: payment.amount || 0,
+                paymentMethod: payment.method || "Cash",
+                guInvoiceId : payment.invoiceNo || ""
             };
 
             return $http({
@@ -336,7 +337,7 @@
         }
         
         return {
-            create: createRecipt
+            createRecipt: createRecipt,
         }
     });
 

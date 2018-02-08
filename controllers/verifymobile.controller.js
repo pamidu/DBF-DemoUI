@@ -1,66 +1,47 @@
-app.controller('VerifyMobileController', ['$scope', '$rootScope', '$state', '$timeout', '$http', '$systemUrls', '$helpers', '$otp', '$profile', '$recipt', verifyMobileController]);
+app.controller('VerifyMobileController', ['$scope', '$rootScope', '$state', '$timeout', '$http', '$systemUrls', '$helpers', '$otp', '$profile', '$invoice', verifyMobileController]);
 
-function verifyMobileController($scope, $rootScope, $state, $timeout, $http, $systemUrls, $helpers, $otp, $profile, $recipt) {
+function verifyMobileController($scope, $rootScope, $state, $timeout, $http, $systemUrls, $helpers, $otp, $profile, $invoice) {
     console.log("verify mobile page loaded");
 
     $scope.user = {};
+    $scope.processing = false;
 
-    if ($state.params || $state.params.user) {
+    if ($state.params && $state.params.user) {
       $scope.user = $state.params.user;
     }
 
-    // $scope.checkVerification = function (mobile, code) {
-    //     $otp.verify(mobile, code).then(function (response, status) {
-    //         if (response.data.IsSuccess) {
-    //             registerProfileOnCloudcharge($scope.user).then(function (response) {
-    //                 $recipt.create($scope.user, 1000000).then(function () {
-    //                     $profile.onFacetone.registerProfile($scope.user).then(function (response, status) {
-    //                         if (response.data.IsSuccess) {
-    //                             $state.go("registration-success", {user: $scope.user});
-    //                             $scope.user = {};
-    //                         }else {
-    //                             alert(response.data.CustomMessage);
-    //                         }
-    //                     }, function(response, status) {
-    //                         alert(response.data.CustomMessage);
-    //                     });
-    //                 });
-    //             }, function (response) {
-    //                 alert(response);
-    //             });
-    //         } else {
-    //             alert(response.data.CustomMessage);
-    //             $scope.processing = false;
-    //         }
-    //     }, function (response, status) {
-    //         alert(response.data.CustomMessage);
-    //         $scope.processing = false;
-    //     });
-    // }
-
     $scope.checkVerification = function (mobile, code) {
+        $scope.processing = true;
+        var payment = { method: "Cash", amount: 1000000 };
+
         $otp.verify(mobile, code).then(function (response, status) {
             if (response.data && response.data.IsSuccess) { 
                 // valid otp code
                 $profile.onFacetone.registerProfile($scope.user).then(function (response, status) {
                     if (response.data && response.data.IsSuccess) {
                         registerProfileOnCloudcharge($scope.user).then(function (response) {
-                            $recipt.create($scope.user, 1000000).then(function () {
+                            $invoice.createRecipt($scope.user, payment).then(function () {
+                                $scope.processing = false;
                                 $state.go("registration-success", {user: $scope.user});
                                 $scope.user = {};
-                            }, function () {
-
+                            }, function (response) {
+                                $scope.processing = false;
+                                alert(response);
                             });
-                        }, function () {
-
+                        }, function (response) {
+                            $scope.processing = false;
+                            alert(response);
                         });
                     }else {
+                        $scope.processing = false;
                         alert(response.data.CustomMessage);
                     }
                 }, function (response, status) {
+                    $scope.processing = false;
                     alert(response);
                 });
             }else {
+                $scope.processing = false;
                 alert(response.data.CustomMessage);
             }
         }, function (response, status) {
@@ -77,9 +58,4 @@ function verifyMobileController($scope, $rootScope, $state, $timeout, $http, $sy
             $profile.onCloudcharge.registerWithUtilityProvider(profile)
         ]);
     }
-
-    function registerProfileOnFacetone (profile) {
-
-    }
-
 }

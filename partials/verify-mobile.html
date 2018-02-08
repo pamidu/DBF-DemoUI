@@ -6,6 +6,9 @@
             <!-- <strong>Your Account is not yet active!</strong> -->
             <p>OTP has been sent to you on your mobile number. Please enter it below.</p>
         </div>
+        <div class="box" ng-if="processing">
+            <img src="img/progress.gif" alt="Paris" class="center">
+        </div>
         <form name="verify" ng-init="isCollapsed=true">
             <div class="list-group list-group-sm">
                 <div class="list-group-item">

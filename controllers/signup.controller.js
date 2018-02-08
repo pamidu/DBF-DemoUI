@@ -6,7 +6,7 @@ function signupController($scope, $rootScope, $state, $timeout, $http, $systemUr
     console.log("signup page loaded");
     
     $scope.user = {};
-    $scope.processing = true;
+    $scope.processing = false;
     $scope.lockEmail = false;
 
     if ($state.params && $state.params.name) {
@@ -21,8 +21,10 @@ function signupController($scope, $rootScope, $state, $timeout, $http, $systemUr
     }
 
     $scope.authenticate = function () {
+        $scope.processing = true;
         $otp.send($scope.user.mobile).then(function (response, status) {
             if (response.data.IsSuccess) {
+                $scope.processing = false;
                 $state.go("verify-mobile", {user: $scope.user});
                 $scope.user = {};
             } else {
@@ -36,32 +38,6 @@ function signupController($scope, $rootScope, $state, $timeout, $http, $systemUr
         
     }
 
-    function getProfile (name) {
-        $http({
-            method: "GET",
-            url: $systemUrls.invoiceService + "/GetProfile/" + (name || ""),
-            headers: {
-                "Authorization": "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdWtpdGhhIiwianRpIjoiYWEzOGRmZWYtNDFhOC00MWUyLTgwMzktOTJjZTY0YjM4ZDFmIiwic3ViIjoiNTZhOWU3NTlmYjA3MTkwN2EwMDAwMDAxMjVkOWU4MGI1YzdjNGY5ODQ2NmY5MjExNzk2ZWJmNDMiLCJleHAiOjE5MDIzODExMTgsInRlbmFudCI6LTEsImNvbXBhbnkiOi0xLCJzY29wZSI6W3sicmVzb3VyY2UiOiJhbGwiLCJhY3Rpb25zIjoiYWxsIn1dLCJpYXQiOjE0NzAzODExMTh9.Gmlu00Uj66Fzts-w6qEwNUz46XYGzE8wHUhAJOFtiRo",
-                "Content-Type": "application/json",
-                "companyInfo": "1:103"
-            }
-        }).then(function (response, status) {
-            if (response.data.IsSuccess) {
-                var profile = response.data.Result;
-                $scope.user = {
-                    fname: profile.first_name,
-                    lname: profile.last_name,
-                    email: profile.email_addr
-                };
-                $scope.loading = false;
-            } else {
-                alert(response.data.CustomMessage);
-                $scope.processing = false;
-            }
-        }, function (response, status) {
-            alert(response.data.CustomMessage);
-            $scope.processing = false;
-        });
-    }
+
 
 }

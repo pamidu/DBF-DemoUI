@@ -7,6 +7,9 @@
             <!-- <strong>Your Account is not yet active!</strong> -->
             <p>Authenticate your facebook account to act on your bank account behalf.</p>
         </div>
+        <div class="box" ng-if="processing">
+            <img src="img/progress.gif" alt="Paris" class="center">
+        </div>
         <form name="form" class="form-validation">
             <div class="text-danger wrapper text-center" ng-show="authError">
 

@@ -1,11 +1,11 @@
-app.controller('SuccessRegistration', ['$scope', '$rootScope', '$state', '$timeout', '$http', '$systemUrls', '$helpers', '$otp', '$profile', '$recipt', successRegistration]);
+app.controller('SuccessRegistration', ['$scope', '$rootScope', '$state', '$timeout', '$http', '$systemUrls', '$helpers', '$otp', '$profile', successRegistration]);
 
-function successRegistration($scope, $rootScope, $state, $timeout, $http, $systemUrls, $helpers, $otp, $profile, $recipt) {
+function successRegistration($scope, $rootScope, $state, $timeout, $http, $systemUrls, $helpers, $otp, $profile) {
     console.log("registration successed.");
 
     $scope.user = {};
 
-    if ($state.params || $state.params.user) {
+    if ($state.params && $state.params.user) {
       $scope.user = $state.params.user;
       BackToBot();
     }
