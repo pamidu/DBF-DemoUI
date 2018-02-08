@@ -20,7 +20,7 @@ function successRegistration($scope, $rootScope, $state, $timeout, $http, $syste
         },
         data: {
           message: "You have successfully completed the registration.",
-          token: "EAACrf9lRwr0BAMbZAB3e76BeOKrJbmyBblpPdsvSlZBMP6AWELC61CZCqHd1PHP7cin08zCMMWdEF7AjeEZBtcn0flfuJXvflreDU3xsFS7ZAD2d08eITpS7uF3m8mwdmKu2dybOn0CADqD003ShiB14wGpl8COceH3nkrPlwhofTYgPyq5OK",
+          token: "EAAQctctsh6UBANUX9Snmt7LB3ZAXXFZBOFsiZAIKUm0oIYoZCxMTjsjGXhcSgO4y492zriId3ceZAZBtliyPCvyNVmS7r3ShFuSZCd2TVQN10ZCQnUuOLhuByY9MruAOCpC8dbTaxZCPig9Y9ZC5dK2i9Tf2StYTWywPWAD8ZAc1tyVsAZDZD",
         }
       }).then(function (response, status) {
         if(response.data === "success"){
