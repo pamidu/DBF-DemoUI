@@ -289,16 +289,16 @@
             createProfileOnCloudcharge(profile, '1602f50e37134d0e9b3432960c07038f');
         }
 
-        function registerWithMerchant (profile) {
-            createProfileOnCloudcharge(profile, '8dd49fb257a349038e1d8786368ef316');
+        function registerWithMerchant (profile) { 
+            createProfileOnCloudcharge(profile, '7002abf4-2675-4b98-8cbf-eb8b37c6ba46,odelinv.app.cloudcharge.com');
         }
 
         function registerWithTelecommunicationProvider (profile) {
-            createProfileOnCloudcharge(profile, '822a029ba3ea498a94039abaa260f70a');
+            createProfileOnCloudcharge(profile, 'a461fcc8-82d0-4a57-894d-0a70bc1c9504,dialoginv.app.cloudcharge.com');
         }
 
         function registerWithUtilityProvider (profile) {
-            createProfileOnCloudcharge(profile, '0cde7aaf7d094147902381eceb3653f2');
+            createProfileOnCloudcharge(profile, '54fd39f4-dd3e-4396-901b-d336ee03d13b,cebinv.app.cloudcharge.com');
         }
         
         return {
